@@ -64,14 +64,27 @@ function loadMoviesDetails(){
             movieSearchBox.value = "";
             const result = await fetch(`https://www.omdbapi.com/?i=${movie.dataset.id}&apikey=3e11fbb4`);
             const movieDetails = await result.json();
+            window.location.href = `movie.html?id=${movieId}`;
             displayMovieDetails(movieDetails);
         });
     });
 }
 
+document.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get('id'); // Récupère l'imdbID depuis l'URL
+
+    if (movieId) {
+        const result = await fetch(`https://www.omdbapi.com/?i=${movieId}&apikey=3e11fbb4`);
+        const movieDetails = await result.json();
+        displayMovieDetails(movieDetails);
+    }
+});
+
 
 function displayMovieDetails(details){
     console.log(details)
+    const resultGrid = document.getElementById('resultat-grid');
     resultGrid.innerHTML = `
     <div class = "movie-poster">
         <img src="${(details.Poster != "N/A") ? details.Poster : "https://fr.web.img2.acsta.net/pictures/17/03/01/11/10/438835.jpg"}" alt="movie poster">
