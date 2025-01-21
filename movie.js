@@ -55,7 +55,7 @@ function displayMovieList(movies){
     }
     loadMoviesDetails();
 }
-
+//faire en sorte que les movie details soit dans movie.html et pas search
 function loadMoviesDetails(){
     const searchListMovies = searchList.querySelectorAll('.search-list-item');
     searchListMovies.forEach(movie => {
@@ -68,6 +68,7 @@ function loadMoviesDetails(){
         });
     });
 }
+
 
 function displayMovieDetails(details){
     console.log(details)
