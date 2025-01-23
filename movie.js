@@ -1,10 +1,6 @@
 //  details: https://www.omdbapi.com/?i=tt3896198&apikey=3e11fbb4
 // titles: https://www.omdbapi.com/?s=thor&page=1&apikey=3e11fbb4
 
-//je n'arrive pas a afficher les films sur la meme page qu'au debut et 
-// il faut que je le remette comme au debut et apares je fait les modifs 
-// pour faire afficher sur la page movie.html
-
 
 const movieSearchBox = document.getElementById('movie-search-box');
 const searchList = document.getElementById('search-list');
