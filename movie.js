@@ -1,11 +1,16 @@
 //  details: https://www.omdbapi.com/?i=tt3896198&apikey=3e11fbb4
 // titles: https://www.omdbapi.com/?s=thor&page=1&apikey=3e11fbb4
 
+//je n'arrive pas a afficher les films sur la meme page qu'au debut et 
+// il faut que je le remette comme au debut et apares je fait les modifs 
+// pour faire afficher sur la page movie.html
+
+
 const movieSearchBox = document.getElementById('movie-search-box');
 const searchList = document.getElementById('search-list');
 const resultGrid = document.getElementById('resultat-grid');
 
-//Load movies from API
+//Load movies from API(search.js)
 async function loadMovies(searchTerm, page){
 
     const URL = `https://www.omdbapi.com/?s=${searchTerm}&page=${page}&apikey=3e11fbb4`;
@@ -16,6 +21,7 @@ async function loadMovies(searchTerm, page){
     if(data.Response == "True") displayMovieList(data.Search);
 }
 
+//search.js
 function findMovies(){
     let page = 1;
     let searchTerm = (movieSearchBox.value).trim();
@@ -33,6 +39,7 @@ function findMovies(){
 //     loadMovies(searchTerm, page);
 // }
 
+//search.js
 function displayMovieList(movies){
     searchList.innerHTML = "";
     for(let idx = 0; idx < movies.length; idx++){
@@ -56,30 +63,29 @@ function displayMovieList(movies){
     loadMoviesDetails();
 }
 //faire en sorte que les movie details soit dans movie.html et pas search
-function loadMoviesDetails(){
+function loadMoviesDetails() {
     const searchListMovies = searchList.querySelectorAll('.search-list-item');
     searchListMovies.forEach(movie => {
-        movie.addEventListener('click', async() => {
-            searchList.classList.add('hide-search-list');
-            movieSearchBox.value = "";
-            const result = await fetch(`https://www.omdbapi.com/?i=${movie.dataset.id}&apikey=3e11fbb4`);
-            const movieDetails = await result.json();
-            window.location.href = `movie.html?id=${movieId}`;
-            displayMovieDetails(movieDetails);
+        movie.addEventListener('click', () => {
+            const movieId = movie.dataset.id; // Récupère l'imdbID
+            window.location.href = `movie.html?id=${movieId}`; // Redirige vers movie.html avec l'ID
         });
     });
 }
 
+
+//pour afficher les pages du movieDetails dans la page de movie.html
+
 document.addEventListener('DOMContentLoaded', async () => {
     const params = new URLSearchParams(window.location.search);
     const movieId = params.get('id'); // Récupère l'imdbID depuis l'URL
-
     if (movieId) {
         const result = await fetch(`https://www.omdbapi.com/?i=${movieId}&apikey=3e11fbb4`);
         const movieDetails = await result.json();
         displayMovieDetails(movieDetails);
     }
 });
+
 
 
 function displayMovieDetails(details){
@@ -105,3 +111,5 @@ function displayMovieDetails(details){
     </div>
     `;
 }  
+
+// filmContainer pour afficher les films dans index.html
